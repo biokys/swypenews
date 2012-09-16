@@ -4,6 +4,9 @@
 
     <string name="menu_config">Settings</string>
     <string name="menu_share">Share</string>
+    <string name="menu_share_with">Share with</string>
+    <string name="menu_share_text">All news in one app:</string>
+
 
     <string name="select_countries">Select countries</string>
 

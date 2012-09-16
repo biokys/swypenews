@@ -4,6 +4,8 @@
     <array name="countries">
         <item>CZ|Česko</item>
         <item>GB|Great Britain</item>
+        <item>PL|Polska</item>
+        <item>SK|Slovensko</item>
     </array>
 
     <array name="servers">
@@ -25,6 +27,21 @@
         <item>GB|http://thesun.mobi|The Sun</item>
         <item>GB|http://www.independent.co.uk|Independent</item>
         <item>GB|http://www.mirror.co.uk|Mirror</item>
+
+        <item>SK|http://m.sme.sk|Sme</item>
+        <item>SK|http://servis.pravda.sk/iphone.asp#_home|Pravda</item>
+        <item>SK|http://hnonline.sk|HNonline</item>
+        <item>SK|http://m.topky.sk|Topky</item>
+        <item>SK|http://aktuality.sk|Aktuality</item>
+        <item>SK|http://m.tvnoviny.sk|Tv Noviny</item>
+
+        <item>PL|http://m.gazeta.pl|Gazeta.pl</item>
+        <item>PL|http://mini.wp.pl|Wp.pl</item>
+        <item>PL|http://m.wyborcza.pl|Gazeta wyborcza</item>
+        <item>PL|http://m.dziennik.pl|Dziennik</item>
+        <item>PL|http://m.onet.pl|Onet</item>
+        <item>PL|http://m.gazetaprawna.pl|Gazeta Prawna</item>
+
     </array>
 
 </resources>

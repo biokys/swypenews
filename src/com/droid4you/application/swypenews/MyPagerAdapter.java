@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,13 +110,19 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private View getWebView(int position) {
 
+        //final ProgressBar pb = new ProgressBar(mContext);
+        //pb.setIndeterminate(true);
+        //pb.setVisibility(View.VISIBLE);
         WebView wv = new WebView(mContext);
+        //wv.setVisibility(View.GONE);
 
         wv.setWebViewClient(new WebViewClient() {
 
             @Override
             public void onPageFinished(WebView view, String url) {
 
+                //pb.setVisibility(View.GONE);
+                //wv.setVisibility(View.VISIBLE);
 
                 super.onPageFinished(view, url);    //To change body of overridden methods use File | Settings | File Templates.
             }

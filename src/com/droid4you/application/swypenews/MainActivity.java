@@ -3,6 +3,7 @@ package com.droid4you.application.swypenews;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -102,6 +103,8 @@ public class MainActivity extends Activity {
                 showSettingsDialog();
                 return true;
             case R.id.menu_share:
+
+                showShareDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -178,6 +181,11 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
 
+        if (adapter == null || adapter.getCurrentWebView() == null) {
+
+            super.onBackPressed();
+        }
+
         WebView webView = adapter.getCurrentWebView();
         if (webView.canGoBack()) {
 
@@ -186,5 +194,16 @@ public class MainActivity extends Activity {
 
             super.onBackPressed();
         }
+    }
+
+    private void showShareDialog() {
+
+        Intent intent=new Intent(android.content.Intent.ACTION_SEND);
+        intent.setType("text/plain");
+
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.menu_share_text) + " https://play.google.com/store/apps/details?id=com.droid4you.application.swypenews");
+
+        startActivity(Intent.createChooser(intent, getString(R.string.menu_share_with)));
     }
 }
