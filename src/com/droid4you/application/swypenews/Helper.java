@@ -22,7 +22,6 @@ final public class Helper {
 
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 
-        //TODO poresit problem se ziskanim zeme na tabletu bez 3G (treba otevrit settings s nastavenim)
         return tm.getSimCountryIso();
     }
 

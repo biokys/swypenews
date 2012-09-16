@@ -8,10 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -19,6 +19,8 @@ public class MainActivity extends Activity {
     private boolean selected[];
 
     private String names[];
+
+    private MyPagerAdapter adapter;
 
     /**
      * Called when the activity is first created.
@@ -32,13 +34,6 @@ public class MainActivity extends Activity {
 
         List<CountryObject> countries = Helper.readSettings(this);
 
-        if (countries == null || countries.size() == 0) {
-
-            List<CountryObject> countryObjectsForSave = new ArrayList<CountryObject>();
-            countryObjectsForSave.add(Helper.getCountryObjectBasedOnCurrentCountry(this));
-            Helper.saveSettings(this, countryObjectsForSave);
-        }
-
 
         names = new String[countryList.size()];
         selected = new boolean[countryList.size()];
@@ -48,7 +43,24 @@ public class MainActivity extends Activity {
             names[i] = countryList.get(i).getCountryName();
         }
 
-        showPages();
+        if (countries == null || countries.size() == 0) {
+
+            String countryCode = Helper.getCountryCodeBasedOnCurrentCountry(this);
+            if (countryCode == null || countryCode.length() == 0) {
+
+                showSettingsDialog();
+            } else {
+
+                List<CountryObject> countryObjectsForSave = new ArrayList<CountryObject>();
+                countryObjectsForSave.add(Helper.getCountryObjectBasedOnCurrentCountry(this));
+                Helper.saveSettings(this, countryObjectsForSave);
+                showPages();
+            }
+        } else {
+
+            showPages();
+        }
+
     }
 
     private void showPages() {
@@ -67,8 +79,8 @@ public class MainActivity extends Activity {
             }
         }
 
-        MyPagerAdapter adapter = new MyPagerAdapter(this, list);
         ViewPager myPager = (ViewPager) findViewById(R.id.mypager);
+        adapter = new MyPagerAdapter(this, myPager, list);
 
         myPager.setOffscreenPageLimit(3);
         myPager.setAdapter(adapter);
@@ -97,13 +109,10 @@ public class MainActivity extends Activity {
     }
 
 
-
     private void showSettingsDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.select_countries);
-
-
 
         builder.setMultiChoiceItems(names, selected, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -132,17 +141,13 @@ public class MainActivity extends Activity {
                 } else {
 
                     Toast.makeText(MainActivity.this, getString(R.string.choose_at_least_one), Toast.LENGTH_SHORT).show();
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
 
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                dialogInterface.cancel();
-            }
-        });
+        builder.setCancelable(false);
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -153,7 +158,7 @@ public class MainActivity extends Activity {
         List<CountryObject> countryObjectsForSave = new ArrayList<CountryObject>();
         List<CountryObject> countryObjects = Helper.getCountries(this);
 
-        for (int i = 0; i < selected.length; i ++) {
+        for (int i = 0; i < selected.length; i++) {
 
             if (selected[i]) {
 
@@ -170,4 +175,16 @@ public class MainActivity extends Activity {
         showPages();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        WebView webView = adapter.getCurrentWebView();
+        if (webView.canGoBack()) {
+
+            webView.goBack();
+        } else {
+
+            super.onBackPressed();
+        }
+    }
 }

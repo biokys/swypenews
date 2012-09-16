@@ -18,14 +18,12 @@
         <item>CZ|http://ct24.cz|ČT24</item>
         <item>CZ|http://tyden.cz|Týden</item>
 
-        <item>GB|http://www.bbc.co.uk|BBC</item>
-        <item>GB|http://www.dailymail.co.uk|DailyMail</item>
+        <item>GB|http://www.bbc.co.uk/mobile/i|BBC</item>
+        <item>GB|http://www.dailymail.co.uk/textbased/channel-1/index.html|DailyMail</item>
         <item>GB|http://www.telegraph.co.uk|Telegraph</item>
-        <item>GB|http://www.theregister.co.uk|The Register</item>
         <item>GB|http://m.guardian.co.uk|Guardian</item>
-        <item>GB|http://www.thesun.co.uk|The Sun</item>
+        <item>GB|http://thesun.mobi|The Sun</item>
         <item>GB|http://www.independent.co.uk|Independent</item>
-        <item>GB|http://www.thetimes.co.uk/tto/news|The Times</item>
         <item>GB|http://www.mirror.co.uk|Mirror</item>
     </array>
 

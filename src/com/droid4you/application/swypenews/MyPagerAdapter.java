@@ -2,6 +2,8 @@ package com.droid4you.application.swypenews;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -22,21 +24,53 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private List<ServerObject> serverList;
 
-    public static class BaseLayoutObject {
+    private ViewPager mViewPager;
 
-        View header;
+    private SparseArray<WebView> mWebViewContainer;
 
-        View content;
-
-        View footer;
-    }
+    private int mCurrentPosition;
 
 
-
-    public MyPagerAdapter(Context context, List<ServerObject> serverList) {
+    public MyPagerAdapter(Context context, ViewPager viewPager, List<ServerObject> serverList) {
 
         this.mContext = context;
         this.serverList = serverList;
+        this.mViewPager = viewPager;
+        mWebViewContainer = new SparseArray<WebView>();
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            private int lPosition;
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+                lPosition = i;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+                if (i == ViewPager.SCROLL_STATE_IDLE) {
+
+                    mCurrentPosition = lPosition;
+
+                }
+            }
+        });
+    }
+
+    public int getCurrentPosition() {
+
+        return mCurrentPosition;
+    }
+
+    public WebView getCurrentWebView() {
+
+        return mWebViewContainer.get(mCurrentPosition);
     }
 
     @Override
@@ -58,6 +92,7 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
+        mWebViewContainer.delete(position);
         container.removeView((View)object);
     }
 
@@ -65,12 +100,13 @@ public class MyPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
         View view = getWebView(position);
+        mWebViewContainer.put(position, (WebView)view);
         container.addView(view);
 
         return view;
     }
 
-    View getWebView(int position) {
+    private View getWebView(int position) {
 
         WebView wv = new WebView(mContext);
 
