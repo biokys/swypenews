@@ -35,10 +35,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+        /*if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
 
             enableHwAcceleration();
-        }
+        }*/
 
         List<CountryObject> countryList = Helper.getCountries(this);
 
