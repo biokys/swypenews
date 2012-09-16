@@ -23,6 +23,8 @@ public class MainActivity extends Activity {
 
     private MyPagerAdapter adapter;
 
+    ViewPager myPager;
+
     /**
      * Called when the activity is first created.
      */
@@ -80,7 +82,7 @@ public class MainActivity extends Activity {
             }
         }
 
-        ViewPager myPager = (ViewPager) findViewById(R.id.mypager);
+        myPager = (ViewPager) findViewById(R.id.mypager);
         adapter = new MyPagerAdapter(this, myPager, list);
 
         myPager.setOffscreenPageLimit(3);
@@ -105,6 +107,10 @@ public class MainActivity extends Activity {
             case R.id.menu_share:
 
                 showShareDialog();
+                return true;
+            case R.id.menu_refresh:
+
+                refresh();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -205,5 +211,12 @@ public class MainActivity extends Activity {
         intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.menu_share_text) + " https://play.google.com/store/apps/details?id=com.droid4you.application.swypenews");
 
         startActivity(Intent.createChooser(intent, getString(R.string.menu_share_with)));
+    }
+
+    private void refresh() {
+
+        int currentItem = myPager.getCurrentItem();
+        showPages();
+        myPager.setCurrentItem(currentItem, false);
     }
 }

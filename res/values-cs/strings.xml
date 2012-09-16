@@ -3,6 +3,7 @@
     <string name="app_name">SwypeNews</string>
 
     <string name="menu_config">Nastavení</string>
+    <string name="menu_refresh">Obnovit</string>
     <string name="menu_share">Sdílet</string>
     <string name="menu_share_with">Sdílejte s ...</string>
     <string name="menu_share_text">Všechny zprávy v jedné aplikaci:</string>

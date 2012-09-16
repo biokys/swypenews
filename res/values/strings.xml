@@ -3,6 +3,7 @@
     <string name="app_name">SwypeNews</string>
 
     <string name="menu_config">Settings</string>
+    <string name="menu_refresh">Refresh</string>
     <string name="menu_share">Share</string>
     <string name="menu_share_with">Share with</string>
     <string name="menu_share_text">All news in one app:</string>
