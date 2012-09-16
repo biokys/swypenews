@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -32,6 +34,11 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+
+            enableHwAcceleration();
+        }
 
         List<CountryObject> countryList = Helper.getCountries(this);
 
@@ -87,6 +94,13 @@ public class MainActivity extends Activity {
 
         myPager.setOffscreenPageLimit(3);
         myPager.setAdapter(adapter);
+    }
+
+    private void enableHwAcceleration() {
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
     }
 
     @Override

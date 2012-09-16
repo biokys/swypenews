@@ -94,18 +94,22 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        mWebViewContainer.delete(position);
+        //mWebViewContainer.delete(position);
         container.removeView((View)object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View view = getWebView(position);
-        mWebViewContainer.put(position, (WebView)view);
-        container.addView(view);
+        WebView webView = mWebViewContainer.get(position);
+        if (webView == null) {
 
-        return view;
+            webView = (WebView)getWebView(position);
+            mWebViewContainer.put(position, webView);
+        }
+        container.addView(webView);
+
+        return webView;
     }
 
     private View getWebView(int position) {
