@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="countries">
+        <item>CZ|Česko</item>
+        <item>GB|Great Britain</item>
+        <item>PL|Polska</item>
+        <item>SK|Slovensko</item>
+    </array>
+
+    <array name="servers">
+
+        <item>CZ|http://idnes.cz|Idnes</item>
+        <item>CZ|http://novinky.cz|Novinky</item>
+        <item>CZ|http://lidovky.cz|Lidovky</item>
+        <item>CZ|http://ihned.cz|iHned</item>
+        <item>CZ|http://ceskenoviny.cz|České noviny</item>
+        <item>CZ|http://aktualne.cz|Aktuálně</item>
+        <item>CZ|http://denik.cz|Deník</item>
+        <item>CZ|http://ct24.cz|ČT24</item>
+        <item>CZ|http://tyden.cz|Týden</item>
+
+        <item>GB|http://www.bbc.co.uk/mobile/i|BBC</item>
+        <item>GB|http://www.dailymail.co.uk/textbased/channel-1/index.html|DailyMail</item>
+        <item>GB|http://www.telegraph.co.uk|Telegraph</item>
+        <item>GB|http://m.guardian.co.uk|Guardian</item>
+        <item>GB|http://thesun.mobi|The Sun</item>
+        <item>GB|http://www.independent.co.uk|Independent</item>
+        <item>GB|http://www.mirror.co.uk|Mirror</item>
+
+        <item>SK|http://m.sme.sk|Sme</item>
+        <item>SK|http://servis.pravda.sk/iphone.asp#_home|Pravda</item>
+        <item>SK|http://hnonline.sk|HNonline</item>
+        <item>SK|http://m.topky.sk|Topky</item>
+        <item>SK|http://aktuality.sk|Aktuality</item>
+        <item>SK|http://m.tvnoviny.sk|Tv Noviny</item>
+
+        <item>PL|http://m.gazeta.pl|Gazeta.pl</item>
+        <item>PL|http://mini.wp.pl|Wp.pl</item>
+        <item>PL|http://m.wyborcza.pl|Gazeta wyborcza</item>
+        <item>PL|http://m.dziennik.pl|Dziennik</item>
+        <item>PL|http://m.onet.pl|Onet</item>
+        <item>PL|http://m.gazetaprawna.pl|Gazeta Prawna</item>
+
+    </array>
+
+</resources>

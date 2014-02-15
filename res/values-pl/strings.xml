@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">News</string>
+    <string name="menu_config">Ustawienia</string>
+    <string name="menu_refresh">Odświeżać</string>
+    <string name="menu_share">Podzielać</string>
+    <string name="menu_share_with">Podziel się z</string>
+    <string name="menu_share_text">Wszystkie wiadomości w jednej aplikacji:</string>
+    <string name="select_countries">Wybierz kraje</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Odwołać</string>
+    <string name="choose_at_least_one">Proszę wybrać co najmniej jeden kraj</string>
+</resources>
