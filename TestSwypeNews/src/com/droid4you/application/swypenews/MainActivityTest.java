@@ -2,7 +2,7 @@ package com.droid4you.application.swypenews;
 
 import android.graphics.PointF;
 import android.test.ActivityInstrumentationTestCase2;
-import com.robotium.solo.Solo;
+import com.jayway.android.robotium.solo.Solo;
 import junit.framework.Assert;
 
 import java.security.spec.ECField;
@@ -27,10 +27,19 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     public void testOpenMenu() throws Exception { //Open settings and that's all
+        solo.waitForActivity("MainActivity",1000);
         solo.sendKey(Solo.MENU);
+        solo.waitForText("Nastavení");
         solo.clickOnText("Nastavení");
-        Assert.assertTrue(solo.searchText("Výběr země"));
+        Assert.assertTrue(solo.waitForText("Výběr země"));
+        solo.clickOnText("Great Britain");
+     //   Assert.assertTrue(solo.isCheckBoxChecked("Great Britain"));
+        solo.clickOnText("Ok");
+
+
+
     }
+
 /*
     public void testSwyping() throws Exception {
         PointF x1 = new PointF();
