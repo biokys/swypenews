@@ -1,12 +1,8 @@
 package com.droid4you.application.swypenews;
-
-import android.graphics.PointF;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import com.jayway.android.robotium.solo.Solo;
 import junit.framework.Assert;
 
-import java.security.spec.ECField;
 
 /**
  * This is a simple framework for a test of an Application.  See
