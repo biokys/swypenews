@@ -1,6 +1,7 @@
 package com.droid4you.application.swypenews;
 import android.test.ActivityInstrumentationTestCase2;
-import com.jayway.android.robotium.solo.Solo;
+import android.test.suitebuilder.annotation.SmallTest;
+import com.robotium.solo.Solo;
 import junit.framework.Assert;
 
 
@@ -22,15 +23,21 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void setUp() throws Exception {
         solo = new Solo(getInstrumentation(), getActivity());
     }
-
+    @SmallTest
     public void testOpenMenu() throws Exception { //Open settings and that's all
-
         solo.waitForActivity(solo.getCurrentActivity().toString());
         solo.sendKey(Solo.MENU);
       //  solo.waitForText("Nastavení");
         solo.clickOnMenuItem("Nastavení");
         Assert.assertTrue(solo.waitForText("Výběr země"));
-        solo.clickOnText("Great Britain");
+        if (solo.isTextChecked("Great Britain")) {
+            solo.clickOnText("Great Britain");
+            Assert.assertTrue(!solo.isTextChecked("Great Britain"));
+        }
+        else {
+            solo.clickOnText("Great Britain");
+            Assert.assertTrue(solo.isTextChecked("Great Britain"));
+        }
         solo.clickOnText("Ok");
 
     }
