@@ -1,4 +1,5 @@
 package com.droid4you.application.swypenews;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 import com.robotium.solo.Solo;
@@ -28,8 +29,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         solo.waitForActivity(solo.getCurrentActivity().toString());
         solo.sendKey(Solo.MENU);
       //  solo.waitForText("Nastavení");
-        solo.clickOnMenuItem("Nastavení");
-        Assert.assertTrue(solo.waitForText("Výběr země"));
+        Context context = this.getInstrumentation().getTargetContext().getApplicationContext();
+        solo.clickOnMenuItem(context.getResources().getString(R.string.menu_config));
+        Assert.assertTrue(solo.waitForText(context.getResources().getString(R.string.select_countries)));
         if (solo.isTextChecked("Great Britain")) {
             solo.clickOnText("Great Britain");
             Assert.assertTrue(!solo.isTextChecked("Great Britain"));
