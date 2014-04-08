@@ -10,30 +10,89 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeoutException;
+
 public class TestIt {
     private WebDriver driver = null;
+    WebElement settingsButton = null;
+    private boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+        catch (StaleElementReferenceException e) {
+            return false;
+        }
+    }
 
+    /**
+     * Čekání do načtení prvku
+     *
+     * @param element Prvek elementu By
+     * @param timeout časový údaj (počet vteřin) po kterých má vypršet časový limit
+     * @throws InterruptedException
+     */
+    private void waitForElementPresent(By element, int timeout, boolean isPresent) throws InterruptedException, TimeoutException {
+        for (int second = 0; ; second++) {
+            if (second >= timeout) {
+                //ThreadLogger.log(this, "timeout: " + element.toString(), Level.ERROR);
+                // fail("timeout: " + element.toString());
+                throw new TimeoutException("Telefon se na necem zasekl");
+            }
+            try {
+                if (isPresent ? isElementPresent(element) : !isElementPresent(element)) {
+                    break;
+                }
+            } catch (Exception e) {
+            }
+            Thread.sleep(1000);
+        }
+    }
+
+    private void waitForElementPresent(By element, int timeout) throws InterruptedException, TimeoutException {
+        waitForElementPresent(element, timeout, true);
+    }
+
+    private void waitForElementPresent(By element) throws InterruptedException, TimeoutException {
+        waitForElementPresent(element, 30, true);
+    }
+
+    private void waitForElementNotPresent(By element, int timeout) throws InterruptedException, TimeoutException {
+        waitForElementPresent(element, timeout, false);
+    }
+
+    private void waitForElementNotPresent(By element) throws InterruptedException, TimeoutException {
+        waitForElementPresent(element, 30, false);
+    }
     @Before
     public void setup() throws Exception {
         driver = new SelendroidDriver(new SelendroidCapabilities("com.droid4you.application.swypenews:1.1"));
     }
 
     @Test
-    public void assertUserAccountCanRegistered() throws Exception {
+    public void assertMenuClicked() throws Exception {
         // Initialize test data
         driver.switchTo().window("NATIVE_APP");
-        int i;
-        for (i = 1; i <10; i++) {
 
-
+        do {
             new Actions(driver).sendKeys(SelendroidKeys.MENU).perform();
-            driver.findElement(By.linkText("Nastavení")).click();
-            driver.findElement(By.linkText("Ok"));
-        }
+            waitForElementPresent(By.linkText("Nastavení"));
+            settingsButton = driver.findElement(By.partialLinkText("Nastavení"));
+            settingsButton.click();
+            waitForElementPresent(By.linkText("Ok"));
+            WebElement clickMe = driver.findElement(By.partialLinkText("Ok"));
+            clickMe.click();
+        } while (true);
+        //Assert.assertTrue(clickMe.getText().contains("Ok"));
+        //clickMe.click();
     }
 
 
