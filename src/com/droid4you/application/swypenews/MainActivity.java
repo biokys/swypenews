@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
         if (countries == null || countries.size() == 0) {
 
             String countryCode = Helper.getCountryCodeBasedOnCurrentCountry(this);
-            if (countryCode == null || countryCode.length() == 0) {
+            if (countryCode == null || countryCode.length() == 0 || !countryList.contains(countryCode)) { //Fixed:ebotta
 
                 showSettingsDialog();
             } else {

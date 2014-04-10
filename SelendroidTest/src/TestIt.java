@@ -14,13 +14,15 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
+import java.util.logging.Logger;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Logger;
 
 public class TestIt {
     private WebDriver driver = null;
     WebElement settingsButton = null;
+    WebElement clickMe = null;
     private boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
@@ -81,14 +83,15 @@ public class TestIt {
     public void assertMenuClicked() throws Exception {
         // Initialize test data
         driver.switchTo().window("NATIVE_APP");
-
+        Logger LOGGER = Logger.getLogger("InfoLogging");
         do {
             new Actions(driver).sendKeys(SelendroidKeys.MENU).perform();
-            waitForElementPresent(By.linkText("Nastavení"));
+            waitForElementPresent(By.partialLinkText("Nastavení"));
             settingsButton = driver.findElement(By.partialLinkText("Nastavení"));
             settingsButton.click();
-            waitForElementPresent(By.linkText("Ok"));
-            WebElement clickMe = driver.findElement(By.partialLinkText("Ok"));
+            waitForElementPresent(By.partialLinkText("Ok"));
+            clickMe = driver.findElement(By.partialLinkText("Ok"));
+            LOGGER.info(clickMe.toString()+"\n");
             clickMe.click();
         } while (true);
         //Assert.assertTrue(clickMe.getText().contains("Ok"));
