@@ -1,17 +1,17 @@
 package com.droid4you.application.swypenews;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AbsListView;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,20 +24,20 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private Context mContext;
 
-    private List<ServerObject> serverList;
-
-    private ViewPager mViewPager;
+    private List<ServerObject> mServerList;
 
     private SparseArray<WebView> mWebViewContainer;
+
+    private ProgressBar mProgressBar;
 
     private int mCurrentPosition;
 
 
-    public MyPagerAdapter(Context context, ViewPager viewPager, List<ServerObject> serverList) {
+    public MyPagerAdapter(Context context, ViewPager viewPager, List<ServerObject> serverList, ProgressBar progressBar) {
 
         this.mContext = context;
-        this.serverList = serverList;
-        this.mViewPager = viewPager;
+        this.mServerList = serverList;
+        this.mProgressBar = progressBar;
         mWebViewContainer = new SparseArray<WebView>();
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -77,13 +77,13 @@ public class MyPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return serverList.size();
+        return mServerList.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
 
-        return serverList.get(position).getName();
+        return mServerList.get(position).getName();
     }
 
     @Override
@@ -94,7 +94,6 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        //mWebViewContainer.delete(position);
         container.removeView((View)object);
     }
 
@@ -114,25 +113,28 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private View getWebView(int position) {
 
-        //final ProgressBar pb = new ProgressBar(mContext);
-        //pb.setIndeterminate(true);
-        //pb.setVisibility(View.VISIBLE);
         WebView wv = new WebView(mContext);
-        //wv.setVisibility(View.GONE);
-
         wv.setWebViewClient(new WebViewClient() {
-
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }});
+        wv.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                mProgressBar.setProgress(newProgress);
+                if (newProgress < 100) {
+                    ((Activity) mContext).findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                }
+                if (newProgress == 100) {
+                    ((Activity) mContext).findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+                }
 
-                //pb.setVisibility(View.GONE);
-                //wv.setVisibility(View.VISIBLE);
-
-                super.onPageFinished(view, url);    //To change body of overridden methods use File | Settings | File Templates.
             }
         });
 
-        wv.loadUrl(serverList.get(position % serverList.size()).getUrl());
+        wv.loadUrl(mServerList.get(position % mServerList.size()).getUrl());
         return wv;
     }
 
